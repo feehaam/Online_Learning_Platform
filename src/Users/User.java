@@ -3,6 +3,7 @@ package Users;
 import ContextSingleton.Context;
 import Courses.Course;
 import UsersFactory.UserType;
+import java.util.List;
 
 public abstract class User {
 
@@ -52,7 +53,7 @@ public abstract class User {
 
     public abstract String seePayments();
 
-    public abstract String getCourses();
+    public abstract List<Course> getCourses();
 
     @Override
     public String toString() {

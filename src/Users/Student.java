@@ -3,20 +3,21 @@ package Users;
 import ContextSingleton.Context;
 import UsersFactory.UserType;
 import Courses.Course;
+import DB.EnrolBase;
+import Helpers.Initials;
 import java.util.ArrayList;
 import java.util.List;
-import Helpers.Output;
 
 public class Student extends User {
 
-    Context context;
+    private Context context;
+    private EnrolBase enrol = new EnrolBase();
 
     private List<Course> enrolledCourses;
     private List<Course> wishlistedCourses;
 
     public Student(String name, String email, String password) {
         super(name, email, password, UserType.Student);
-        Output.show("New student added", super.toString());
         enrolledCourses = new ArrayList<>();
         wishlistedCourses = new ArrayList<>();
         context = Context.getCourseContext();
@@ -24,60 +25,76 @@ public class Student extends User {
 
     @Override
     public boolean addCourse(Course course) {
-        try {
-            if (course.getCourseFee() == 0) {
+        if(!Initials.initialComplete){
+            if(course.getCourseFee() <= 0) {
+                course.setCourseFee(Math.abs(course.getCourseFee()));
                 enrolledCourses.add(course);
-                Course courseMain = (Course) context.get(course.getId());
-                courseMain.addEnrolled();
-                Output.show("Enorlled a new course", course);
-            } else {
+            }
+            else{
                 wishlistedCourses.add(course);
-                Output.show("Course wishlisted\nComplete payment to enroll", course);
             }
             return true;
-        } catch (Exception e) {
+        }
+        boolean payment = false;
+        if(course.getCourseFee() == 0) {
+            payment = true;
+        }
+        try{
+            if(enrol.add(course.getId(), getId(), payment)){
+                if(course.getCourseFee() <= 0)
+                    enrolledCourses.add(course);
+                else wishlistedCourses.add(course);
+                return true;
+            }
+            return false;
+        }
+        catch (Exception e){
             return false;
         }
     }
 
     @Override
-    public boolean payment(double balance) {
-        try {
-            double total = 0;
-            for (Object o : wishlistedCourses) {
-                Course c = (Course) o;
-                total += c.getCourseFee();
-            }
-            if (balance >= total) {
-                for (Object o : wishlistedCourses) {
-                    Course c = (Course) o;
-                    enrolledCourses.add(c);
+    public boolean payment(double cid) {
+        int courseId = (int) cid;
+        Course course = (Course) context.get(courseId);
+        if(dropCourse(courseId) && enrol.add(courseId, getId(), true)){
+            for(int i=0; i<enrolledCourses.size(); i++){
+                if(enrolledCourses.get(i).getId() == courseId){
+                    enrolledCourses.remove(i);
                 }
-                wishlistedCourses.clear();
-                return true;
             }
-            return false;
-        } catch (Exception e) {
-            return false;
+            for(int i=0; i<wishlistedCourses.size(); i++){
+                if(wishlistedCourses.get(i).getId() == courseId){
+                    wishlistedCourses.remove(i);
+                }
+            }
+            course.addEnrolled();
+            enrolledCourses.add(course);
+            return true;
         }
+        else return false;
     }
 
     @Override
     public boolean dropCourse(int id) {
-        boolean dropped = false;
         Course course = (Course) context.get(id);
         if (course == null) {
             return false;
         }
-        if (enrolledCourses.contains(course)) {
-            enrolledCourses.remove(course);
-            dropped = true;
+        boolean deleted = enrol.remove(id, getId());
+        if(deleted){
+            for(int i=0; i<enrolledCourses.size(); i++){
+                if(enrolledCourses.get(i).getId() == id){
+                    enrolledCourses.remove(i);
+                }
+            }
+            for(int i=0; i<wishlistedCourses.size(); i++){
+                if(wishlistedCourses.get(i).getId() == id){
+                    wishlistedCourses.remove(i);
+                }
+            }
         }
-        if (wishlistedCourses.contains(course)) {
-            wishlistedCourses.remove(course);
-            dropped = true;
-        }
-        return dropped;
+        return deleted;
     }
 
     @Override
@@ -90,10 +107,11 @@ public class Student extends User {
     }
 
     @Override
-    public String getCourses() {
-        String takenCourses = "";
-        takenCourses += ">> Enrolled courses: \n" + enrolledCourses.toString() + "\n\n";
-        takenCourses += ">> Wishlisted courses: \n" + wishlistedCourses.toString();
-        return takenCourses;
+    public List<Course> getCourses() {
+        List<Course> courses = new ArrayList<>();
+        courses.addAll(enrolledCourses);
+        courses.add(null);
+        courses.addAll(wishlistedCourses);
+        return courses;
     }
 }

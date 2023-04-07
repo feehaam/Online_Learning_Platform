@@ -1,12 +1,17 @@
 package ContextStrategy;
 
 import Courses.Course;
+import DB.CourseBase;
+import Helpers.Initials;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class CourseContext implements Strategy {
 
     private List<Object> courses = new ArrayList<>();
+    private CourseBase courseBase = new CourseBase();
     
     @Override 
     public Object get(int id){
@@ -22,7 +27,10 @@ public class CourseContext implements Strategy {
         try {
             Course course = (Course) o;
             courses.add(course);
-            return true;
+            if(Initials.initialComplete == false) {
+                return true;
+            }
+            return courseBase.addCourse(course);
         }
         catch(Exception e) {
             return false;
@@ -33,8 +41,11 @@ public class CourseContext implements Strategy {
     public boolean remove(Object o) {
         try {
             Course course = (Course) o;
-            courses.remove(course);
-            return true;
+            if(courseBase.deleteCourse(course.getId())){
+                courses.remove(course);
+                return true;
+            }
+            else return false;
         }
         catch(Exception e) {
             return false;
@@ -47,15 +58,23 @@ public class CourseContext implements Strategy {
     }
 
     @Override
-    public boolean update(Object o) {
-        try {
+    public Object get(String email) {
+        return null;
+    }
+
+    @Override
+    public int getNewId() {
+        List<Object> list = getAll();
+        Set<Integer> ids = new HashSet<>();
+        for(Object o: list){
             Course course = (Course) o;
-            courses.remove(course);
-            courses.add(course);
-            return true;
+            ids.add(course.getId());
         }
-        catch(Exception e) {
-            return false;
+        for(int i=1; i>0; i++){
+            if(!ids.contains(i)){
+                return i;
+            }
         }
+        return 0;
     }
 }

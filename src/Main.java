@@ -1,4 +1,3 @@
-
 import Helpers.*;
 import Users.User;
 import java.util.Scanner;
@@ -22,8 +21,7 @@ public class Main {
         System.out.println("2. Sign up as Student");
         System.out.println("3. Sign up as Teacher");
         System.out.println("4. Exit");
-//        choice = input(1, 4);
-        login();
+        choice = input(1, 4);
         if (choice == 1) {
             login();
         } else if (choice == 2) {
@@ -40,9 +38,9 @@ public class Main {
         User user = null;
         while (user == null) {
             System.out.print("Email: ");
-            String email = "albert@green.edu"; //sc.next();
+            String email = sc.next();
             System.out.print("Password: ");
-            String password = "albert"; //sc.next();
+            String password = sc.next();
 
             for (Object obj : userContext.getAll()) {
                 User usr = (User) obj;
@@ -163,9 +161,9 @@ public class Main {
                 }
             }
             if (fee == 0) {
-                return new BasicCourse(name, des, dur, ins);
+                return new BasicCourse(0, name, des, dur, ins);
             } else {
-                return new PremiumCourse(name, des, dur, ins, fee, subins);
+                return new PremiumCourse(0, name, des, dur, ins, fee);
             }
         }
     }

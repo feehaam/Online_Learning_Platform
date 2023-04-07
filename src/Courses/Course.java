@@ -1,23 +1,22 @@
 package Courses;
 
-import java.util.List;
-
 public class Course {
     public int id;
     private String courseName;
     private String courseDescription;
     private int courseDuration;
     private double courseFee;
-    private String instructorName;
+    private String instructor;
     private int enrolledBy = 0;
-    private List<String> subInstructors;
+    private boolean subInstructors = true;
 
-    public Course(String name, String description, String instructorName, int duration, double fee, List<String> subInstructors) {
+    public Course(int id, String name, String description, String instructor, int duration, double fee, boolean subInstructors) {
+        this.id = id;
         this.courseName = name;
         this.courseDescription = description;
         this.courseDuration = duration;
         this.courseFee = fee;
-        this.instructorName = instructorName;
+        this.instructor = instructor;
         this.subInstructors = subInstructors; 
     }
     
@@ -57,27 +56,19 @@ public class Course {
         this.courseFee = fee;
     }
 
-    public String getInstructorName() {
-        return instructorName;
+    public String getInstructor() {
+        return instructor;
     }
 
-    public void setInstructorName(String instructorName) {
-        this.instructorName = instructorName;
+    public void setInstructor(String instructorName) {
+        this.instructor = instructorName;
     }
 
-    public String getSubInstructors() {
-        if(subInstructors == null || subInstructors.size() == 0)
-            return "   - There are no sub-instructors for this course\n";
-        else{
-            String si = "";
-            for(String ins: subInstructors){
-                si += "   - "+ins+"\n";
-            }
-            return si;
-        }
+    public boolean getSubInstructors() {
+        return this.subInstructors;
     }
 
-    public void setSubInstructors(List<String> subInstructors) {
+    public void setSubInstructors(boolean subInstructors) {
         this.subInstructors = subInstructors;
     }
     
@@ -95,7 +86,7 @@ public class Course {
                 " - Course Name: " + courseName + "\n"
                 + " - Description: " + courseDescription + "\n"
                 + " - Duration: " + courseDuration + " hours\n"
-                + " - Instructor: " + instructorName+"\n"
+                + " - Instructor: " + instructor+"\n"
                 + " - Fee: " + courseFee+"\n"
                 + " - Enrolled by: " + enrolledBy+"\n"
                 + " - Sub Instructors \n" + getSubInstructors();

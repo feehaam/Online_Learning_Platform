@@ -7,5 +7,6 @@ public interface Strategy {
     boolean add(Object o);
     boolean remove(Object o);
     List<Object> getAll();
-    boolean update(Object o);
+    public Object get(String email);
+    public int getNewId();
 }

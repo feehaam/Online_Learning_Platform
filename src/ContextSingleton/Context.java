@@ -33,6 +33,10 @@ public class Context {
         return strategy.get(id);
     }
     
+    public Object get(String email){
+        return strategy.get(email);
+    }
+    
     public boolean add(Object o){
         return strategy.add(o);
     }
@@ -41,8 +45,8 @@ public class Context {
         return strategy.remove(o);
     }
     
-    public boolean update(Object o){
-        return strategy.update(o);
+    public int getNewId(){
+        return strategy.getNewId();
     }
     
     public List<Object> getAll(){

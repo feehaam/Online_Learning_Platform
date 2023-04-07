@@ -1,12 +1,16 @@
 package ContextStrategy;
 
+import DB.UserBase;
 import Users.User;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class UserContext implements Strategy {
 
     private List<Object> users = new ArrayList<>();
+    private UserBase userBase = new UserBase();
 
     @Override
     public Object get(int id) {
@@ -30,8 +34,9 @@ public class UserContext implements Strategy {
                 User eu = (User) e;
                 if(eu.getEmail().equals(user.getEmail())) return false;
             }
-            if(!exist)
+            if(!exist && userBase.addUser(user)){
                 users.add(user);
+            }
             return true;
         } catch (Exception e) {
             return false;
@@ -55,14 +60,28 @@ public class UserContext implements Strategy {
     }
 
     @Override
-    public boolean update(Object o) {
-        try {
+    public Object get(String email) {
+        for(Object o: users){
             User user = (User) o;
-            users.remove(user);
-            users.add(user);
-            return true;
-        } catch (Exception e) {
-            return false;
+            if(user.getEmail().equals(email)) 
+                return user;
         }
+        return null;
+    }
+
+    @Override
+    public int getNewId() {
+        List<Object> list = getAll();
+        Set<Integer> ids = new HashSet<>();
+        for(Object o: list){
+            User user = (User) o;
+            ids.add(user.getId());
+        }
+        for(int i=1; i>0; i++){
+            if(!ids.contains(i)){
+                return i;
+            }
+        }
+        return 0;
     }
 }

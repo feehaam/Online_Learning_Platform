@@ -2,8 +2,11 @@ package Users;
 
 import ContextSingleton.Context;
 import Courses.Course;
+import Helpers.Initials;
 import UsersFactory.UserType;
 import Helpers.Output;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Teacher extends User {
 
@@ -11,15 +14,18 @@ public class Teacher extends User {
 
     public Teacher(String name, String email, String password) {
         super(name, email, password, UserType.Teacher);
-        Output.show("New teacher added", super.toString());
         context = Context.getCourseContext();
     }
     
     @Override
     public boolean addCourse(Course course) {
         try {
-            course.setInstructorName(getName());
-            course.id = context.getAll().size();
+            course.setInstructor(getEmail());
+            if(!Initials.initialComplete) {
+                return context.add(course);
+            }
+            
+            course.id = context.getNewId();
             boolean added = context.add(course);
             if(added) {
                 Output.show("New Course added", course);
@@ -54,7 +60,7 @@ public class Teacher extends User {
         String payments = "";
         for(Object o: context.getAll()){
             Course course = (Course) o;
-            if(course.getInstructorName().equals(getName())){
+            if(course.getInstructor().equals(getName())){
                 payments += course.getCourseName() + " -> " + (course.getCourseFee() * course.getEnrolled() + "\n");
                 total += course.getCourseFee() * course.getEnrolled();
             }
@@ -64,14 +70,15 @@ public class Teacher extends User {
     }
 
     @Override
-    public String getCourses() {
-        String courses = "";
+    public List<Course> getCourses() {
+        List<Course> courses = new ArrayList<>();
         for(Object o: context.getAll()){
             Course course = (Course) o;
-            if(course.getInstructorName().equals(getName())){
-                courses += course.toString();
+            if(course.getInstructor().equals(getEmail())){
+                courses.add(course);
             }
         }
         return courses;
     }
+    
 }
