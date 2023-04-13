@@ -1,11 +1,11 @@
 package UI;
 
-import javax.swing.JFrame;
-
+/**
+ *
+ * @author User
+ */
 public class Start {
-    static JFrame ui;
     public static void main(String[] args) {
-        ui = new Login();
-        ui.setVisible(true);
+        new Login().setVisible(true);
     }
 }

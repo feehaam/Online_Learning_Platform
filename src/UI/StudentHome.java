@@ -2,7 +2,9 @@ package UI;
 
 import ContextSingleton.Context;
 import Courses.Course;
+import Helpers.Initials;
 import Users.User;
+import java.awt.Color;
 import java.util.List;
 import javax.swing.JOptionPane;
 
@@ -15,7 +17,12 @@ public class StudentHome extends javax.swing.JFrame {
     public StudentHome(User user) {
         this.user = user;
         initComponents();
+        username.setText(user.getName());
+        setTitle("Course management system | "+user.getName());
         addCourseTitle.setText("<html><h2>Add a new course</h2></html>");
+        if(Initials.positionX != -1 && Initials.positionY != -1){
+            setLocation(Initials.positionX, Initials.positionY);
+        }
         this.setVisible(true);
         loadCourses();
         loadPayment();
@@ -194,12 +201,7 @@ public class StudentHome extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        courses = new javax.swing.JLabel();
-        add = new javax.swing.JLabel();
-        drop = new javax.swing.JLabel();
-        payment = new javax.swing.JLabel();
         tabs = new javax.swing.JTabbedPane();
-        jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jPanel6 = new javax.swing.JPanel();
         myCoursesTitle = new javax.swing.JLabel();
@@ -222,61 +224,46 @@ public class StudentHome extends javax.swing.JFrame {
         jButton4 = new javax.swing.JButton();
         jScrollPane4 = new javax.swing.JScrollPane();
         paymentDisplay = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
+        jPanel1 = new javax.swing.JPanel();
+        courses = new javax.swing.JLabel();
+        add = new javax.swing.JLabel();
+        drop = new javax.swing.JLabel();
+        payment = new javax.swing.JLabel();
+        jSeparator1 = new javax.swing.JSeparator();
+        jSeparator2 = new javax.swing.JSeparator();
+        jSeparator3 = new javax.swing.JSeparator();
+        jSeparator4 = new javax.swing.JSeparator();
+        username = new javax.swing.JLabel();
+        jButton3 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-        courses.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        courses.setText("My courses");
-        courses.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                coursesMouseClicked(evt);
+        setResizable(false);
+        addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentMoved(java.awt.event.ComponentEvent evt) {
+                formComponentMoved(evt);
             }
         });
 
-        add.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        add.setText("Add a new course");
-        add.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                addMouseClicked(evt);
+        tabs.setBackground(new java.awt.Color(255, 255, 255));
+        tabs.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                tabsStateChanged(evt);
             }
         });
-
-        drop.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        drop.setText("Remove existing course");
-        drop.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                dropMouseClicked(evt);
-            }
-        });
-
-        payment.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        payment.setText("Wishlist & Payments");
-        payment.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                paymentMouseClicked(evt);
-            }
-        });
-
         tabs.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tabsMouseClicked(evt);
             }
         });
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 809, Short.MAX_VALUE)
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 504, Short.MAX_VALUE)
-        );
+        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
 
-        tabs.addTab(" ", jPanel1);
-
+        myCoursesTitle.setBackground(new java.awt.Color(250, 234, 228));
         myCoursesTitle.setText("All courses conducted by");
+
+        jScrollPane1.setBackground(new java.awt.Color(250, 234, 228));
+        jScrollPane1.setBorder(null);
 
         enrolledCourses.setFont(new java.awt.Font("Verdana", 0, 11)); // NOI18N
         enrolledCourses.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -321,6 +308,8 @@ public class StudentHome extends javax.swing.JFrame {
         );
 
         tabs.addTab("My courses", jPanel2);
+
+        jPanel3.setBackground(new java.awt.Color(255, 255, 255));
 
         addCourseTitle.setText("Add a new Course");
 
@@ -367,6 +356,8 @@ public class StudentHome extends javax.swing.JFrame {
         );
 
         tabs.addTab("Add a new course", jPanel3);
+
+        jPanel7.setBackground(new java.awt.Color(255, 255, 255));
 
         removeCourseTitle.setText("Add a new Course");
 
@@ -428,6 +419,8 @@ public class StudentHome extends javax.swing.JFrame {
 
         tabs.addTab("Remove existing course", jPanel4);
 
+        jPanel5.setBackground(new java.awt.Color(255, 255, 255));
+
         paymentTitle.setText("All courses conducted by");
 
         paymentOptions.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
@@ -473,36 +466,149 @@ public class StudentHome extends javax.swing.JFrame {
 
         tabs.addTab("Wishlist & Payments", jPanel5);
 
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/logo.png"))); // NOI18N
+
+        jPanel1.setBackground(new java.awt.Color(255, 153, 51));
+        jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jPanel1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+
+        courses.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        courses.setForeground(new java.awt.Color(255, 255, 255));
+        courses.setText("My courses");
+        courses.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        courses.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                coursesMouseClicked(evt);
+            }
+        });
+
+        add.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        add.setText("Add a new course");
+        add.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        add.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                addMouseClicked(evt);
+            }
+        });
+
+        drop.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        drop.setText("Remove existing course");
+        drop.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        drop.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                dropMouseClicked(evt);
+            }
+        });
+
+        payment.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        payment.setText("Wishlist & Payments");
+        payment.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        payment.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                paymentMouseClicked(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(courses, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(add, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                .addGap(0, 1, Short.MAX_VALUE)
+                                .addComponent(drop, javax.swing.GroupLayout.PREFERRED_SIZE, 262, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jSeparator1)
+                            .addComponent(jSeparator2)
+                            .addComponent(jSeparator3))
+                        .addContainerGap())
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(payment, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(jSeparator4)))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(49, 49, 49)
+                .addComponent(courses)
+                .addGap(26, 26, 26)
+                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(28, 28, 28)
+                .addComponent(add)
+                .addGap(18, 18, 18)
+                .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(27, 27, 27)
+                .addComponent(drop, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(35, 35, 35)
+                .addComponent(payment)
+                .addGap(18, 18, 18)
+                .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(147, Short.MAX_VALUE))
+        );
+
+        username.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        username.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        username.setText("Full name of user");
+
+        jButton3.setBackground(new java.awt.Color(255, 153, 0));
+        jButton3.setForeground(new java.awt.Color(255, 255, 255));
+        jButton3.setText("Logout");
+        jButton3.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jButton3.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(55, 55, 55)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(payment, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(drop, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(courses, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(add, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(tabs, javax.swing.GroupLayout.PREFERRED_SIZE, 814, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 325, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(username, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 599, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jButton3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(19, 19, 19)
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(37, 37, 37)
+                        .addComponent(tabs, javax.swing.GroupLayout.PREFERRED_SIZE, 814, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(47, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(91, 91, 91)
-                .addComponent(courses, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(add, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(drop, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(payment, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(101, Short.MAX_VALUE)
-                .addComponent(tabs, javax.swing.GroupLayout.PREFERRED_SIZE, 532, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(18, 18, 18))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(23, 23, 23)
+                        .addComponent(username, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(tabs, javax.swing.GroupLayout.PREFERRED_SIZE, 532, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(87, 87, 87))
         );
 
@@ -510,53 +616,41 @@ public class StudentHome extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    void markLeft(javax.swing.JLabel clicked){
+        javax.swing.JLabel label1 = courses;
+        javax.swing.JLabel label2 = add;
+        javax.swing.JLabel label3 = drop;
+        javax.swing.JLabel label4 = payment;
+        label1.setForeground(Color.decode("#333333"));
+        label2.setForeground(Color.decode("#333333"));
+        label3.setForeground(Color.decode("#333333"));
+        label4.setForeground(Color.decode("#333333"));
+        clicked.setForeground(Color.decode("#ffffff"));
+    }
+    
     private void coursesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_coursesMouseClicked
-        tabs.setSelectedIndex(1);
+        tabs.setSelectedIndex(0);
+        markLeft(courses);
     }//GEN-LAST:event_coursesMouseClicked
 
     private void addMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addMouseClicked
-        tabs.setSelectedIndex(2);
+        tabs.setSelectedIndex(1);
+        markLeft(add);
     }//GEN-LAST:event_addMouseClicked
 
     private void dropMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_dropMouseClicked
-        tabs.setSelectedIndex(3);
+        tabs.setSelectedIndex(2);
+        markLeft(drop);
     }//GEN-LAST:event_dropMouseClicked
 
     private void paymentMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_paymentMouseClicked
-        loadPayment();
-        tabs.setSelectedIndex(4);
+        tabs.setSelectedIndex(3);
+        markLeft(payment);
     }//GEN-LAST:event_paymentMouseClicked
 
     private void tabsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabsMouseClicked
-        
-    }//GEN-LAST:event_tabsMouseClicked
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        String selected = String.valueOf(addCourseOptions.getSelectedItem());
-        int courseId;
-        try{
-            courseId = Integer.parseInt(selected.substring(0, selected.indexOf(".")));
-        }
-        catch(Exception e){
-            JOptionPane.showMessageDialog(this, "Select a course first");
-            return;
-        }
-        Course course = (Course) courseContext.get(courseId);
-        boolean added = user.addCourse(course);
-        if(added){
-            if(course.getCourseFee() > 0)
-                JOptionPane.showMessageDialog(this, "Course '" +selected.substring(selected.indexOf(".")+1)+"' added to your wishlist. "
-                        + "\nGo to payment and pay for this course\nto start learning!");
-            else JOptionPane.showMessageDialog(this, "Course '" +selected.substring(selected.indexOf(".")+1)+"' added to your enrolled course list. \nHappy learning!");
-            loadCourses();
-            loadPayment();
-            enrolledCourses();
-            removeCourse();
-        }
-        else{
-            JOptionPane.showMessageDialog(this, "Failed to add course. \nPossible reason: database failure.");
-        }
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_tabsMouseClicked
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         try{
@@ -614,6 +708,60 @@ public class StudentHome extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jButton2ActionPerformed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        String selected = String.valueOf(addCourseOptions.getSelectedItem());
+        int courseId;
+        try{
+            courseId = Integer.parseInt(selected.substring(0, selected.indexOf(".")));
+        }
+        catch(Exception e){
+            JOptionPane.showMessageDialog(this, "Select a course first");
+            return;
+        }
+        Course course = (Course) courseContext.get(courseId);
+        boolean added = user.addCourse(course);
+        if(added){
+            if(course.getCourseFee() > 0)
+            JOptionPane.showMessageDialog(this, "Course '" +selected.substring(selected.indexOf(".")+1)+"' added to your wishlist. "
+                + "\nGo to payment and pay for this course\nto start learning!");
+            else JOptionPane.showMessageDialog(this, "Course '" +selected.substring(selected.indexOf(".")+1)+"' added to your enrolled course list. \nHappy learning!");
+            loadCourses();
+            loadPayment();
+            enrolledCourses();
+            removeCourse();
+        }
+        else{
+            JOptionPane.showMessageDialog(this, "Failed to add course. \nPossible reason: database failure.");
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void tabsStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_tabsStateChanged
+        switch(tabs.getSelectedIndex()){
+            case 0:
+                markLeft(courses);
+                break;
+            case 1:
+                markLeft(add);
+                break;
+            case 2:
+                markLeft(drop);
+                break;
+            case 3:
+                markLeft(payment);
+                break;
+        }
+    }//GEN-LAST:event_tabsStateChanged
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        new Login().setVisible(true);
+        setVisible(false);
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void formComponentMoved(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentMoved
+        Initials.positionX = this.getX();
+        Initials.positionY = this.getY();
+    }//GEN-LAST:event_formComponentMoved
+
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -626,7 +774,9 @@ public class StudentHome extends javax.swing.JFrame {
     private javax.swing.JLabel enrolledCourses;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
@@ -637,6 +787,10 @@ public class StudentHome extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JSeparator jSeparator2;
+    private javax.swing.JSeparator jSeparator3;
+    private javax.swing.JSeparator jSeparator4;
     private javax.swing.JLabel myCoursesTitle;
     private javax.swing.JLabel payment;
     private javax.swing.JLabel paymentDisplay;
@@ -645,5 +799,6 @@ public class StudentHome extends javax.swing.JFrame {
     private javax.swing.JLabel removeCourseTitle;
     private javax.swing.JComboBox<String> removeList;
     private javax.swing.JTabbedPane tabs;
+    private javax.swing.JLabel username;
     // End of variables declaration//GEN-END:variables
 }

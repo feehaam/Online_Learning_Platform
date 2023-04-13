@@ -4,7 +4,9 @@ import ContextSingleton.Context;
 import Courses.BasicCourse;
 import Courses.Course;
 import Courses.PremiumCourse;
+import Helpers.Initials;
 import Users.User;
+import java.awt.Color;
 import java.util.List;
 import javax.swing.JOptionPane;
 
@@ -17,6 +19,10 @@ public class TeacherHome extends javax.swing.JFrame {
     public TeacherHome(User user) {
         this.user = user;
         initComponents();
+        username.setText(user.getName());
+        if(Initials.positionX != -1 && Initials.positionY != -1){
+            setLocation(Initials.positionX, Initials.positionY);
+        }
         this.setVisible(true);
         loadCourses();
         loadPayment();
@@ -103,12 +109,7 @@ public class TeacherHome extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        courses = new javax.swing.JLabel();
-        add = new javax.swing.JLabel();
-        drop = new javax.swing.JLabel();
-        payment = new javax.swing.JLabel();
         tabs = new javax.swing.JTabbedPane();
-        jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jPanel6 = new javax.swing.JPanel();
         myCoursesTitle = new javax.swing.JLabel();
@@ -144,59 +145,40 @@ public class TeacherHome extends javax.swing.JFrame {
         jPanel5 = new javax.swing.JPanel();
         paymentTitle = new javax.swing.JLabel();
         paymentDisplay = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        jPanel1 = new javax.swing.JPanel();
+        payment = new javax.swing.JLabel();
+        drop = new javax.swing.JLabel();
+        add = new javax.swing.JLabel();
+        courses = new javax.swing.JLabel();
+        jSeparator1 = new javax.swing.JSeparator();
+        jSeparator2 = new javax.swing.JSeparator();
+        jSeparator3 = new javax.swing.JSeparator();
+        jSeparator4 = new javax.swing.JSeparator();
+        username = new javax.swing.JLabel();
+        jButton4 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-        courses.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        courses.setText("My courses");
-        courses.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                coursesMouseClicked(evt);
+        setResizable(false);
+        addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentMoved(java.awt.event.ComponentEvent evt) {
+                formComponentMoved(evt);
             }
         });
 
-        add.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        add.setText("Add course");
-        add.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                addMouseClicked(evt);
+        tabs.setBackground(new java.awt.Color(255, 255, 255));
+        tabs.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                tabsStateChanged(evt);
             }
         });
-
-        drop.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        drop.setText("Update or drop course");
-        drop.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                dropMouseClicked(evt);
-            }
-        });
-
-        payment.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        payment.setText("Payment");
-        payment.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                paymentMouseClicked(evt);
-            }
-        });
-
         tabs.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tabsMouseClicked(evt);
             }
         });
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 809, Short.MAX_VALUE)
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 504, Short.MAX_VALUE)
-        );
-
-        tabs.addTab(" ", jPanel1);
+        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
 
         myCoursesTitle.setText("All courses conducted by");
 
@@ -243,6 +225,8 @@ public class TeacherHome extends javax.swing.JFrame {
         );
 
         tabs.addTab("My courses", jPanel2);
+
+        jPanel3.setBackground(new java.awt.Color(255, 255, 255));
 
         addCourseTitle.setText("Add a new Course");
 
@@ -340,6 +324,8 @@ public class TeacherHome extends javax.swing.JFrame {
         );
 
         tabs.addTab("Add course", jPanel3);
+
+        jPanel7.setBackground(new java.awt.Color(255, 255, 255));
 
         updateCourseTitle.setText("Add a new Course");
 
@@ -479,6 +465,8 @@ public class TeacherHome extends javax.swing.JFrame {
 
         tabs.addTab("Update course", jPanel4);
 
+        jPanel5.setBackground(new java.awt.Color(255, 255, 255));
+
         paymentTitle.setText("All courses conducted by");
 
         paymentDisplay.setFont(new java.awt.Font("Verdana", 0, 11)); // NOI18N
@@ -508,36 +496,138 @@ public class TeacherHome extends javax.swing.JFrame {
 
         tabs.addTab("Payment", jPanel5);
 
+        jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/logo.png"))); // NOI18N
+
+        jPanel1.setBackground(new java.awt.Color(255, 153, 51));
+        jPanel1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+
+        payment.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        payment.setText("Payment");
+        payment.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        payment.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                paymentMouseClicked(evt);
+            }
+        });
+
+        drop.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        drop.setText("Update or drop course");
+        drop.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        drop.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                dropMouseClicked(evt);
+            }
+        });
+
+        add.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        add.setText("Add course");
+        add.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        add.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                addMouseClicked(evt);
+            }
+        });
+
+        courses.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        courses.setText("My courses");
+        courses.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        courses.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                coursesMouseClicked(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jSeparator2, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jSeparator3, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(add, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(courses, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(drop)
+                            .addComponent(payment, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 26, Short.MAX_VALUE))
+                    .addComponent(jSeparator4))
+                .addContainerGap())
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addGap(45, 45, 45)
+                .addComponent(courses, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(35, 35, 35)
+                .addComponent(add, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(36, 36, 36)
+                .addComponent(drop)
+                .addGap(18, 18, 18)
+                .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(28, 28, 28)
+                .addComponent(payment, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        username.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        username.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        username.setText("Full name of user");
+
+        jButton4.setBackground(new java.awt.Color(255, 153, 0));
+        jButton4.setForeground(new java.awt.Color(255, 255, 255));
+        jButton4.setText("Logout");
+        jButton4.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jButton4.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(55, 55, 55)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(payment, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(drop, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(courses, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(add, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(tabs, javax.swing.GroupLayout.PREFERRED_SIZE, 814, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(23, 23, 23)
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(30, 30, 30)
+                        .addComponent(tabs, javax.swing.GroupLayout.PREFERRED_SIZE, 814, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel9)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(username, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 599, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jButton4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(47, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(91, 91, 91)
-                .addComponent(courses, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(add, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(drop, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(payment, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(101, Short.MAX_VALUE)
-                .addComponent(tabs, javax.swing.GroupLayout.PREFERRED_SIZE, 532, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel9)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(username, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton4)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(tabs)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(87, 87, 87))
         );
 
@@ -545,22 +635,38 @@ public class TeacherHome extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    void markLeft(javax.swing.JLabel clicked){
+        javax.swing.JLabel label1 = courses;
+        javax.swing.JLabel label2 = add;
+        javax.swing.JLabel label3 = drop;
+        javax.swing.JLabel label4 = payment;
+        label1.setForeground(Color.decode("#333333"));
+        label2.setForeground(Color.decode("#333333"));
+        label3.setForeground(Color.decode("#333333"));
+        label4.setForeground(Color.decode("#333333"));
+        clicked.setForeground(Color.decode("#ffffff"));
+    }
+    
     private void coursesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_coursesMouseClicked
-        tabs.setSelectedIndex(1);
+        tabs.setSelectedIndex(0);
         loadCourses();
+        markLeft(courses);
     }//GEN-LAST:event_coursesMouseClicked
 
     private void addMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addMouseClicked
-        tabs.setSelectedIndex(2);
+        tabs.setSelectedIndex(1);
+        markLeft(add);
     }//GEN-LAST:event_addMouseClicked
 
     private void dropMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_dropMouseClicked
-        tabs.setSelectedIndex(3);
+        tabs.setSelectedIndex(2);
+        markLeft(drop);
     }//GEN-LAST:event_dropMouseClicked
 
     private void paymentMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_paymentMouseClicked
         loadPayment();
-        tabs.setSelectedIndex(4);
+        tabs.setSelectedIndex(3);
+        markLeft(payment);
     }//GEN-LAST:event_paymentMouseClicked
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -577,7 +683,7 @@ public class TeacherHome extends javax.swing.JFrame {
         catch(Exception e){}
         for(Course c: user.getCourses()){
             if(c.getCourseName().equals(name)){
-                JOptionPane.showMessageDialog(this, "This course already exists in your list.");
+                JOptionPane.showMessageDialog(this, "A course with the same name already exists.");
                 return;
             }
         }
@@ -751,6 +857,33 @@ public class TeacherHome extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jButton3ActionPerformed
 
+    private void tabsStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_tabsStateChanged
+        switch(tabs.getSelectedIndex()){
+            case 0:
+                markLeft(courses);
+                break;
+            case 1:
+                markLeft(add);
+                break;
+            case 2:
+                markLeft(drop);
+                break;
+            case 3:
+                markLeft(payment);
+                break;
+        }
+    }//GEN-LAST:event_tabsStateChanged
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        new Login().setVisible(true);
+        setVisible(false);
+    }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void formComponentMoved(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentMoved
+        Initials.positionX = this.getX();
+        Initials.positionY = this.getY();
+    }//GEN-LAST:event_formComponentMoved
+
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -767,6 +900,7 @@ public class TeacherHome extends javax.swing.JFrame {
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -775,6 +909,7 @@ public class TeacherHome extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
@@ -785,6 +920,10 @@ public class TeacherHome extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JSeparator jSeparator2;
+    private javax.swing.JSeparator jSeparator3;
+    private javax.swing.JSeparator jSeparator4;
     private javax.swing.JLabel myCoursesTitle;
     private javax.swing.JLabel payment;
     private javax.swing.JLabel paymentDisplay;
@@ -795,5 +934,6 @@ public class TeacherHome extends javax.swing.JFrame {
     private javax.swing.JTextField updateDuration;
     private javax.swing.JTextField updateFee;
     private javax.swing.JTextField updateName;
+    private javax.swing.JLabel username;
     // End of variables declaration//GEN-END:variables
 }

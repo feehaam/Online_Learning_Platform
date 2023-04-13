@@ -15,22 +15,12 @@ public class Main {
     static Context courseContext = Context.getCourseContext();
 
     public static void main(String[] args) {
-        Initials.setup();
-        int choice = 0;
-        System.out.println("1. Login");
-        System.out.println("2. Sign up as Student");
-        System.out.println("3. Sign up as Teacher");
-        System.out.println("4. Exit");
-        choice = input(1, 4);
-        if (choice == 1) {
-            login();
-        } else if (choice == 2) {
-            createUser(UserType.Student);
-        } else if (choice == 3) {
-            createUser(UserType.Teacher);
-        } else {
-            return;
-        }
+       int m = 8, v = 0;
+       while(m>0){
+           m = m & (m-1);
+           v++;
+       }
+        System.out.println(v);
     }
 
     static void login() {

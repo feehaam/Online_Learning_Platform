@@ -9,6 +9,7 @@ import java.util.List;
 public class Initials {
     
     public static boolean initialComplete = false;
+    public static int positionX = - 1, positionY = -1;
     
     public static void setup() {
 //        Output.print = true;
@@ -44,7 +45,7 @@ public class Initials {
             User student = (User) userContext.get(ep.studentId);
             Course course = (Course) courseContext.get(ep.courseId);
             boolean paid = ep.payment;
-            
+            if(course == null) continue;
             // Marging enrolment and student
             if(course.getCourseFee() > 0 && paid){
                 course.setCourseFee(-course.getCourseFee());
